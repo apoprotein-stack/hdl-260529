@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>譯軒生技 YIXUAN | 保健食品代工 · 兒童果汁牛奶鈣 · 寵物精準營養</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap');
+        
+        :root {
+            --primary-navy: #0f172a;
+            --brand-orange: #fb923c; 
+            --line-green: #06C755;
+            --fb-blue: #1877F2;
+            --pork-red: #7f1d1d;
+            --medical-blue: #0284c7;
+            --violet-color: #8b6fff;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: #fff;
+            color: var(--primary-navy);
+            scroll-behavior: smooth;
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+        }
+
+        #hidden_iframe, #pork_hidden_iframe { display: none; }
+
+        .section-split {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 100px 24px;
+        }
+
+        /* 仿百歐科學卡片風格 */
+        .bio-card {
+            background: #ffffff;
+            border-radius: 32px;
+            border: 1px solid #f1f5f9;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+        .bio-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 40px 80px -15px rgba(15, 23, 42, 0.08);
+            border-color: var(--brand-orange);
+        }
+
+        .lab-card {
+            border-radius: 24px;
+            border: 1px solid #e2e8f0;
+            background: #fff;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        .lab-card:hover {
+            border-color: var(--pork-red);
+            box-shadow: 0 20px 40px -10px rgba(127, 29, 29, 0.1);
+        }
+
+        /* 右下角懸浮按鈕 */
+        .social-fab {
+            position: fixed;
+            right: 24px;
+            bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 100;
+        }
+        .fab-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            transition: all 0.3s ease;
+        }
+        .fab-btn:hover { transform: scale(1.15) rotate(3deg); }
+
+        .feature-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 14px;
+            background: #f0f9ff;
+            color: var(--medical-blue);
+            border-radius: 99px;
+            font-size: 11px;
+            font-weight: 800;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .img-wrapper {
+            position: relative;
+            background: #f1f5f9;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .img-fallback-label {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f8fafc;
+            color: #94a3b8;
+            z-index: 1;
+            transition: opacity 0.3s;
+        }
+    </style>
+    <script>
+        var submitted = false;
+        var porkSubmitted = false;
+
+        function handleFormSuccess() {
+            if (submitted) {
+                document.getElementById('appointmentForm').classList.add('hidden');
+                document.getElementById('successMessage').classList.remove('hidden');
+                document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function handlePorkFormSuccess() {
+            if (porkSubmitted) {
+                document.getElementById('porkOrderForm').classList.add('hidden');
+                document.getElementById('porkSuccessMessage').classList.remove('hidden');
+                document.getElementById('pork-section').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // 核心導覽與勾稽設定
+        function navigateToBusiness(sectionId, typeValue) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+            if (typeValue) {
+                const selectElement = document.querySelector('select[name="entry.103362142"]');
+                if (selectElement) { selectElement.value = typeValue; }
+            }
+        }
+
+        function selectConsultType(typeValue) {
+            const selectElement = document.querySelector('select[name="entry.103362142"]');
+            if (selectElement) { selectElement.value = typeValue; }
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 圖片加載成功時隱藏備援文字
+        function onImageLoad(imgElement) {
+            const label = imgElement.previousElementSibling;
+            if (label && label.classList.contains('img-fallback-label')) {
+                label.style.opacity = '0';
+                setTimeout(() => label.style.display = 'none', 300);
+            }
+        }
+    </script>
+</head>
+<body class="antialiased bg-slate-50/30">
+
+    <iframe name="hidden_iframe" id="hidden_iframe" onload="handleFormSuccess()"></iframe>
+    <iframe name="pork_hidden_iframe" id="pork_hidden_iframe" onload="handlePorkFormSuccess()"></iframe>
+
+    <!-- 社交渠道懸浮 -->
+    <div class="social-fab">
+        <a href="https://www.facebook.com/dahualabpeng" target="_blank" class="fab-btn bg-[#1877F2] shadow-lg shadow-blue-500/20" title="Facebook 專頁">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://line.me/ti/p/@469fwrxx" target="_blank" class="fab-btn bg-[#06C755] shadow-lg shadow-green-500/20" title="LINE 專員">
+            <i class="fab fa-line"></i>
+        </a>
+    </div>
+
+    <!-- 導覽列 -->
+    <nav class="fixed w-full z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-white shadow-md shadow-slate-200"><i class="fas fa-flask-vial"></i></div>
+                <div>
+                    <div class="font-black text-xl tracking-tighter">譯軒生技</div>
+                    <div class="text-[8px] text-orange-500 font-bold uppercase tracking-[0.2em] leading-none mt-1">YIXUAN BIO-TECH</div>
+                </div>
+            </div>
+            <div class="hidden lg:flex gap-10 text-[11px] font-black uppercase tracking-widest text-slate-400 items-center">
+                <a href="#business-hub" class="hover:text-slate-900">四大事業</a>
+                <a href="#calcium-tablet" class="hover:text-slate-900">兒童果汁牛奶鈣</a>
+                <a href="#supplement-odm" class="hover:text-slate-900">保健代工</a>
+                <a href="#pet-nutrition" class="hover:text-slate-900">寵物營養</a>
+                <a href="#booking" class="px-6 py-2.5 bg-slate-900 text-white rounded-full hover:bg-orange-500 transition">專家預約</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄區：與大華檢驗所策略合作 -->
+    <section class="min-h-screen flex items-center bg-white px-6">
+        <div class="max-w-7xl mx-auto w-full pt-20">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-sky-50 text-sky-600 rounded-full text-[10px] font-black uppercase tracking-widest mb-6">
+                        <i class="fas fa-shield-halved"></i> 2009 諾貝爾生理醫學獎驗證科學
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-black text-slate-900 leading-none mb-8">
+                        精準生技，<br><span class="text-sky-600">細胞重燃。</span>
+                    </h1>
+                    <p class="text-slate-400 text-base md:text-lg mb-12 max-w-lg leading-relaxed">
+                        譯軒生技引領長壽科學與預防醫學風潮，與大華醫學檢驗所策略結盟，將臨床生化檢測數據轉化為專屬於全家與寵物的精準能量補充方案。
+                    </p>
+                    <div class="flex gap-4">
+                        <button onclick="document.getElementById('business-hub').scrollIntoView({ behavior: 'smooth' });" class="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold hover:shadow-lg transition">點選核心事業</button>
+                        <a href="https://www.facebook.com/dahualabpeng" target="_blank" class="px-8 py-4 bg-slate-50 text-[#1877F2] rounded-2xl font-bold border border-slate-100"><i class="fab fa-facebook mr-2"></i>FB 官方社群</a>
+                    </div>
+                </div>
+                <div class="relative hidden lg:block">
+                    <!-- 鑲嵌大華檢驗所專業研究人員與設備照片 -->
+                    <div class="w-full aspect-square rounded-[100px] rotate-3 overflow-hidden border-8 border-white shadow-2xl shadow-slate-200 img-wrapper">
+                        <div class="img-fallback-label">
+                            <i class="fas fa-chart-pie text-slate-300 text-8xl mb-4"></i>
+                            <span class="text-[10px] font-black text-slate-400 tracking-[0.3em] uppercase">[大華檢驗所臨床數據中心]</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1579154204601-01588f35116f?auto=format&fit=crop&q=80&w=800" alt="大華檢驗所專業設備與數據中心" class="w-full h-full object-cover relative z-10" onload="onImageLoad(this)" onerror="this.style.display='none'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 四大事業點選區塊 (吸納百歐與活粒生活結構) -->
+    <section id="business-hub" class="py-24 bg-slate-50 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-sky-600 font-bold text-xs uppercase tracking-widest block mb-2">Our Business Grid</span>
+                <h2 class="text-4xl font-black mb-4 text-slate-900">四大事業版圖</h2>
+                <p class="text-slate-400 text-sm">數據檢測與細胞重燃完美整合的健康體系</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- 事業 1 -->
+                <div onclick="navigateToBusiness('calcium-tablet', '兒童果汁牛奶鈣咀嚼錠諮詢')" class="bio-card p-8">
+                    <div class="w-14 h-14 bg-orange-50 text-orange-500 rounded-2xl flex items-center justify-center mb-8 text-2xl"><i class="fas fa-glass-milk"></i></div>
+                    <h3 class="font-black text-xl mb-3 text-slate-900">兒童果汁牛奶鈣</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">4OA有機複合鈣系統配合諾貝爾端粒復興路徑，精準點火細胞能效。</p>
+                    <span class="text-orange-500 font-bold text-xs flex items-center gap-2">查看產品介紹 <i class="fas fa-chevron-right text-[10px]"></i></span>
+                </div>
+                <!-- 事業 2 -->
+                <div onclick="navigateToBusiness('supplement-odm', '保健食品代工研發需求')" class="bio-card p-8">
+                    <div class="w-14 h-14 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center mb-8 text-2xl"><i class="fas fa-microscope"></i></div>
+                    <h3 class="font-black text-xl mb-3 text-slate-900">保健食品代工</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">六大核心劑型，提供科研配方、打樣到法規包裝的一站式服務。</p>
+                    <span class="text-blue-500 font-bold text-xs flex items-center gap-2">了解代工服務 <i class="fas fa-chevron-right text-[10px]"></i></span>
+                </div>
+                <!-- 事業 3 -->
+                <div onclick="navigateToBusiness('pet-nutrition')" class="bio-card bg-slate-900 p-8 text-white hover:border-red-500">
+                    <div class="w-14 h-14 bg-white/10 text-red-400 rounded-2xl flex items-center justify-center mb-8 text-2xl"><i class="fas fa-dog"></i></div>
+                    <h3 class="font-black text-xl mb-3">寵物營養</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">專注於毛孩原型食品工藝。結合益生元，研發全天然寵物食研。</p>
+                    <span class="text-red-400 font-bold text-xs flex items-center gap-2">探索寵物產品 <i class="fas fa-chevron-right text-[10px]"></i></span>
+                </div>
+                <!-- 事業 4 -->
+                <div onclick="navigateToBusiness('dahua-lab', '大華檢驗所臨床合作')" class="bio-card p-8">
+                    <div class="w-14 h-14 bg-slate-50 text-slate-900 rounded-2xl flex items-center justify-center mb-8 text-2xl"><i class="fas fa-shield-virus"></i></div>
+                    <h3 class="font-black text-xl mb-3">大華檢驗所</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">嚴格遵循 LDTs 與 ISO 品質認證，提供高準確度臨床醫事數據。</p>
+                    <span class="text-slate-900 font-bold text-xs flex items-center gap-2">檢視檢驗項目 <i class="fas fa-chevron-right text-[10px]"></i></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 區塊 1: 兒童果汁牛奶鈣咀嚼錠 (融合活粒生活頂規配方) -->
+    <section id="calcium-tablet" class="section-split bg-white">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+            <div class="order-2 lg:order-1">
+                <span class="text-orange-500 font-black tracking-widest text-xs mb-4 block uppercase font-mono">Nobel Prize 2009 & Telomere Science</span>
+                <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight">兒童果汁牛奶鈣<br>咀嚼錠系列</h2>
+                
+                <!-- 活粒生活核心配方標籤 -->
+                <div class="mb-10 flex flex-wrap">
+                    <div class="feature-tag">🌿 4OA 有機複合鈣</div>
+                    <div class="feature-tag">☀️ D3 吸收閘門</div>
+                    <div class="feature-tag">🦴 MK7 骨骼導向</div>
+                    <div class="feature-tag">⚡ CoQ10 粒線體提速</div>
+                    <div class="feature-tag">🔬 PQQ 粒線體新生</div>
+                    <div class="feature-tag">🧬 NMN 諾貝爾端粒修復</div>
+                    <div class="feature-tag">🚀 MDSNV 奈米遞送</div>
+                </div>
+
+                <p class="text-slate-500 text-base md:text-lg mb-10 leading-relaxed">
+                    我們打破盲目補鈣的迷思。譯軒生技「兒童果汁牛奶鈣」引入 **MitoActiveLife 細胞重燃計畫**：採用 <strong>4OA 有機複合鈣系統</strong>（牛奶鈣、珍珠鈣、乳酸鈣、海藻鈣），不傷腸胃、不依賴胃酸；協同 <strong>D3+MK7 骨骼雙因子</strong> 與 <strong>QuMA 粒線體三重能量因子 (Q10 + PQQ + NMN)</strong>，直接接通 2009 諾貝爾獎端粒活化路徑，讓補鈣不僅是骨骼礦化，更是全身細胞能量再生。
+                </p>
+
+                <!-- 細分機制說明 -->
+                <div class="space-y-6 mb-10">
+                    <div class="flex gap-4">
+                        <div class="shrink-0 w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center text-orange-500 border border-orange-100">
+                            <i class="fas fa-cubes"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm mb-1">4OA 有機複合鈣 × D3/MK7</h4>
+                            <p class="text-[12px] text-slate-500 leading-relaxed">融合牛奶鈣、珍珠鈣、乳酸鈣、海藻鈣，克服一般碳酸鈣吸收率低的缺點。D3 打開腸道吸收閘門，MK7 羧化活化骨鈣素，精準引導鈣質沉積於骨骼，避免血管血管鈣化。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="shrink-0 w-12 h-12 bg-purple-50 rounded-2xl flex items-center justify-center text-purple-500 border border-purple-100">
+                            <i class="fas fa-battery-three-quarters"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm mb-1">QuMA 粒線體復興 & 端粒修復</h4>
+                            <p class="text-[12px] text-slate-500 leading-relaxed">還原型 CoQ10 提速現有發電效率，PQQ 刺激 PGC-1α 促進粒線體新生。配合 NMN 轉化 NAD⁺，啟動 SIRT1/SIRT6 去乙醯化酶，上調端粒酶活性，逆轉細胞分裂極限。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="shrink-0 w-12 h-12 bg-red-50 rounded-2xl flex items-center justify-center text-red-500 border border-red-100">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm mb-1">MDSNV 燕窩酸奈米囊體遞送</h4>
+                            <p class="text-[12px] text-slate-500 leading-relaxed">乳源奈米囊泡完整包覆活性，繞過消化系統屏障，完整抵達小腸。腸細胞能動性內吞吸收，吸收效率呈幾何級倍增。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <button onclick="selectConsultType('兒童果汁牛奶鈣咀嚼錠諮詢')" class="px-10 py-5 bg-orange-500 text-white rounded-[24px] font-black hover:shadow-xl transition">產品與數據諮詢</button>
+                </div>
+            </div>
+            <!-- 兒童成長情境照 -->
+            <div class="order-1 lg:order-2 h-[500px] rounded-[60px] border border-orange-100 relative overflow-hidden img-wrapper shadow-xl">
+                <div class="img-fallback-label">
+                    <i class="fas fa-prescription-bottle-medical text-orange-200 text-8xl mb-4"></i>
+                    <span class="text-xs text-orange-400 font-bold tracking-widest">[兒童果汁牛奶鈣健康概念]</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&q=80&w=800" alt="兒童在陽光下健康快樂地成長" class="w-full h-full object-cover relative z-10" onload="onImageLoad(this)" onerror="this.style.display='none'">
+            </div>
+        </div>
+    </section>
+
+    <!-- 區塊 2: 保健食品代工研發 -->
+    <section id="supplement-odm" class="section-split bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+            <!-- 鑲嵌高科技現代化製藥代工廠照片 -->
+            <div class="h-[500px] rounded-[60px] border border-white/5 relative img-wrapper order-2 lg:order-1 shadow-2xl">
+                <div class="img-fallback-label bg-slate-800 text-slate-500">
+                    <i class="fas fa-boxes-packing text-8xl mb-4"></i>
+                    <span class="text-xs font-bold uppercase tracking-widest">[代工廠研發製程]</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?auto=format&fit=crop&q=80&w=800" alt="現代化高科技無塵保健食品代工生產線" class="w-full h-full object-cover relative z-10 animate-pulse-slow" onload="onImageLoad(this)" onerror="this.style.display='none'">
+            </div>
+            <div class="order-1 lg:order-2">
+                <span class="text-sky-400 font-black tracking-widest text-xs mb-4 block uppercase font-mono">OEM / ODM Laboratory</span>
+                <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight">保健食品代工研發</h2>
+                <p class="text-slate-400 text-base md:text-lg mb-10 leading-relaxed">
+                    我們擁有自主的原料供應鏈與配方開發實驗室，專門協助品牌快速研發出具備醫學實證數據的高效能產品。提供包含膠囊、錠劑、散劑、顆粒、軟膠囊及機能飲品等六大核心劑型。
+                </p>
+                <button onclick="selectConsultType('保健食品代工研發需求')" class="px-10 py-5 bg-sky-600 text-white rounded-[24px] font-black hover:bg-sky-500 hover:shadow-xl transition">索取劑型打樣方案</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 區塊 3: 寵物營養 -->
+    <section id="pet-nutrition" class="py-32 bg-white px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-3 gap-12">
+                <div class="lg:col-span-2">
+                    <span class="text-red-700 font-black text-xs uppercase tracking-widest block mb-4">Pet Wellness & Microbiome</span>
+                    <h2 class="text-4xl md:text-5xl font-black mb-6">寵物營養</h2>
+                    <p class="text-slate-400 text-base mb-12">
+                        結合微菌叢工藝與在地原料，我們提供符合人類食安規格的寵物原型食物與功能性益生菌營養品，協助獸醫師與飼主建立毛孩的前後測健康評估。
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- 鑲嵌寵物原型豬肉烘乾零食照片 1 -->
+                        <div class="p-8 bg-slate-50 rounded-3xl border border-slate-100 hover:border-red-200 transition-colors">
+                            <div class="w-full h-40 rounded-2xl mb-4 overflow-hidden img-wrapper">
+                                <div class="img-fallback-label">
+                                    <i class="fas fa-dog text-slate-300 text-4xl"></i>
+                                </div>
+                                <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=600" alt="低溫慢烘豬耳 B (切段) 寵物零食" class="w-full h-full object-cover" onload="onImageLoad(this)" onerror="this.style.display='none'">
+                            </div>
+                            <h4 class="font-bold text-slate-800 mb-2"><i class="fas fa-award text-red-700 mr-2"></i> 低溫慢烘豬耳 B (切段)</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">無化學添加，適合中小型犬，富含高質量天然膠原蛋白。</p>
+                        </div>
+                        <!-- 鑲嵌寵物原型豬耳零食照片 2 -->
+                        <div class="p-8 bg-slate-50 rounded-3xl border border-slate-100 hover:border-red-200 transition-colors">
+                            <div class="w-full h-40 rounded-2xl mb-4 overflow-hidden img-wrapper">
+                                <div class="img-fallback-label">
+                                    <i class="fas fa-bone text-slate-300 text-4xl"></i>
+                                </div>
+                                <img src="https://images.unsplash.com/photo-1544568100-847a948585b9?auto=format&fit=crop&q=80&w=600" alt="快樂的黃金獵犬咬嚼零食" class="w-full h-full object-cover" onload="onImageLoad(this)" onerror="this.style.display='none'">
+                            </div>
+                            <h4 class="font-bold text-slate-800 mb-2"><i class="fas fa-circle-info text-red-700 mr-2"></i> 豬耳多 A (整耳原型)</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">大型犬咀嚼解壓、潔牙首選。滿足最天然的原型撕咬本能。</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 寵物線上預訂 -->
+                <div id="pork-section" class="bg-slate-900 rounded-[40px] p-10 text-white shadow-2xl relative overflow-hidden">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-red-600/10 rounded-full"></div>
+                    <h3 class="text-2xl font-black mb-8 text-red-400">寵物食品訂購</h3>
+                    <form id="porkOrderForm" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSei1lTkkSMJoOggasMStPr-0OkJE49voCZOAOpXZRSl3ySEZg/formResponse" method="POST" target="pork_hidden_iframe" onsubmit="porkSubmitted=true;" class="space-y-4 text-slate-900">
+                        <input type="text" name="entry.1466044719" required placeholder="訂購人姓名" class="w-full px-5 py-4 rounded-xl bg-white outline-none">
+                        <input type="tel" name="entry.206451642" required placeholder="聯絡電話" class="w-full px-5 py-4 rounded-xl bg-white outline-none">
+                        <select name="entry.1884351368" required class="w-full px-5 py-4 rounded-xl bg-white outline-none appearance-none">
+                            <option value="">選購寵物營養配方</option>
+                            <option value="豬耳多 B (切段)">豬耳多 B (切段)</option>
+                            <option value="豬耳多 A (整耳)">豬耳多 A (整耳)</option>
+                            <option value="毛孩試吃體驗袋">毛孩益生菌試吃體驗袋</option>
+                        </select>
+                        <textarea name="entry.1643916964" placeholder="收件地址與配送備註事項" class="w-full px-5 py-4 rounded-xl bg-white outline-none" rows="2"></textarea>
+                        <button type="submit" class="w-full py-4 bg-red-700 text-white rounded-xl font-black hover:bg-red-800 transition shadow-lg">確認送出訂單</button>
+                    </form>
+                    <div id="porkSuccessMessage" class="hidden text-center py-10">
+                        <i class="fas fa-heart text-red-500 text-4xl mb-4"></i>
+                        <p class="font-bold text-white">訂購完成！</p>
+                        <p class="text-xs text-slate-400 mt-2">我們將與您進行出貨確認</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 區塊 4: 大華檢驗所 -->
+    <section id="dahua-lab" class="py-24 bg-slate-50 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col items-center text-center">
+            <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-sm mb-12"><i class="fas fa-microscope text-3xl text-sky-600"></i></div>
+            <h2 class="text-4xl font-black mb-8">大華檢驗所：醫學大數據核心</h2>
+            <p class="max-w-2xl text-slate-500 text-base md:text-lg mb-12">
+                深耕醫檢領域，通過國家級標準審核，為 LDTs（實驗室開發檢測）核可單位。提供精準的微菌叢、生化及免疫學檢測，以無懈可擊的數據捍衛健康。
+            </p>
+            <button onclick="selectConsultType('大華檢驗所臨床合作')" class="px-12 py-5 border-2 border-slate-900 rounded-2xl font-black hover:bg-slate-900 hover:text-white transition">臨床檢測合作洽詢</button>
+        </div>
+    </section>
+
+    <!-- 專家預約區 (完全勾稽) -->
+    <section id="booking" class="py-32 px-6 bg-white">
+        <div class="max-w-4xl mx-auto bg-slate-900 rounded-[60px] p-8 md:p-20 text-white border border-slate-800 shadow-2xl relative overflow-hidden">
+            <div class="absolute -top-10 -left-10 w-40 h-40 bg-orange-500/5 rounded-full blur-3xl"></div>
+            <div class="text-center mb-16">
+                <span class="text-orange-500 font-bold text-xs tracking-widest uppercase block mb-2">Form Submission</span>
+                <h2 class="text-4xl font-black mb-4">預約專業諮詢</h2>
+                <p class="text-slate-400 italic">"Precision nutrition backed by medical data."</p>
+            </div>
+            <form id="appointmentForm" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSc8p7MsmtiS47dl7UZs-jOp1EFy6f-658tCNnWBsyOlGa0e-Q/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;" class="space-y-6 text-slate-900">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <input type="text" name="entry.507314948" required placeholder="您的姓名 / 單位名稱" class="px-8 py-5 rounded-3xl bg-white outline-none w-full shadow-inner focus:ring-4 focus:ring-orange-500/30 transition">
+                    <input type="tel" name="entry.1843187282" required placeholder="聯絡電話" class="px-8 py-5 rounded-3xl bg-white outline-none w-full shadow-inner focus:ring-4 focus:ring-orange-500/30 transition">
+                </div>
+                <select name="entry.103362142" required class="px-8 py-5 rounded-3xl bg-white outline-none w-full appearance-none shadow-inner focus:ring-4 focus:ring-orange-500/30 transition">
+                    <option value="">請選擇諮詢項目</option>
+                    <option value="兒童果汁牛奶鈣咀嚼錠諮詢">兒童果汁牛奶鈣咀嚼錠諮詢</option>
+                    <option value="保健食品代工研發需求">保健食品代工研發需求</option>
+                    <option value="寵物營養產品合作">寵物營養產品合作</option>
+                    <option value="大華檢驗所臨床合作">大華檢驗所臨床合作</option>
+                </select>
+                <textarea name="entry.1742417711" placeholder="請描述您的具體需求..." class="px-8 py-5 rounded-3xl bg-white outline-none w-full shadow-inner focus:ring-4 focus:ring-orange-500/30 transition" rows="4"></textarea>
+                <button type="submit" class="w-full py-6 bg-orange-500 text-white rounded-[32px] font-black text-xl hover:bg-orange-600 hover:shadow-xl transition-all active:scale-95">送出諮詢請求</button>
+            </form>
+            <div id="successMessage" class="hidden text-center py-20">
+                <i class="fas fa-check-circle text-orange-500 text-6xl mb-6"></i>
+                <h3 class="text-3xl font-black mb-4">預約資料已成功送出</h3>
+                <p class="text-slate-400">專員將於服務時間內盡快與您聯繫。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer class="py-20 border-t border-slate-100 bg-white">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12">
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white"><i class="fas fa-flask"></i></div>
+                    <span class="font-black text-2xl tracking-tighter">譯軒生技 YIXUAN</span>
+                </div>
+                <p class="text-slate-400 max-w-sm mb-8 leading-relaxed">深耕預防醫學與精準微菌，致力為生命提供最誠實、最科學的健康支持方案。</p>
+                <div class="flex gap-4">
+                    <a href="https://www.facebook.com/dahualabpeng" target="_blank" class="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-[#1877F2] hover:bg-[#1877F2] hover:text-white transition shadow-sm"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://line.me/ti/p/@469fwrxx" target="_blank" class="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-[#06C755] hover:bg-[#06C755] hover:text-white transition shadow-sm"><i class="fab fa-line"></i></a>
+                </div>
+            </div>
+            <div class="md:text-right">
+                <p class="text-slate-900 font-bold mb-2">服務網絡</p>
+                <p class="text-slate-400 text-sm mb-8">精準檢測中心 · 全球臨床應用</p>
+                <p class="text-[10px] text-slate-300 font-black uppercase tracking-widest">© 2026 YIXUAN BIO-TECH. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
