@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>譯軒生技 YIXUAN | 保健食品代工 · 兒童果汁牛奶鈣 · 寵物潔牙骨</title>
+    <title>譯軒生技 YIXUAN | 保健食品代工 · 活"粒"果汁牛奶鈣 · 寵物精準營養</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -126,9 +126,361 @@
         }
     </style>
     <script>
+        // 多語系翻譯數據字典 (已更新為最新「活粒鈣、粒線體關鍵調控」定位)
+        const translations = {
+            "zh-Hant": {
+                "nav_businesses": "四大事業",
+                "nav_calcium": "活\"粒\"果汁牛奶鈣",
+                "nav_oem": "保健代工",
+                "nav_pet": "寵物潔牙骨",
+                "nav_booking": "專家預約",
+                "hero_tag": "🧬 MitoActiveLife 能量活化科學",
+                "hero_title": "精準生技，<br><span class='text-sky-600'>細胞重燃。</span>",
+                "hero_sub": "譯軒生技引領長壽科學與預防醫學風潮，與大華醫學檢驗所策略結盟，將臨床生化檢測數據轉化為專屬於全家與寵物的精準能量補充方案。",
+                "hero_btn": "點選核心事業",
+                "hero_fb": "FB 官方社群",
+                "hub_tag": "Our Business Grid",
+                "hub_title": "四大事業版圖",
+                "hub_sub": "數據檢測與細胞重燃完美整合的健康體系",
+                "hub_c1_title": "活\"粒\"果汁牛奶鈣",
+                "hub_c1_desc": "4OA有機複合鈣系統配合粒線體關鍵調控，精準點火細胞能效。",
+                "hub_c1_link": "查看產品介紹",
+                "hub_c2_title": "保健食品代工",
+                "hub_c2_desc": "六大核心劑型，提供科研配方、打樣到法規包裝的一站式服務。",
+                "hub_c2_link": "了解代工服務",
+                "hub_c3_title": "寵物潔牙骨",
+                "hub_c3_desc": "結合物理耐咬工藝與關節雙效守護。添加天然蛋殼膜與高純度葡萄糖胺，維護口腔與骨骼健康。",
+                "hub_c3_link": "探索潔牙骨產品",
+                "hub_c4_title": "大華檢驗所",
+                "hub_c4_desc": "嚴格遵循 LDTs 與 ISO 品質認證，提供高準確度臨床醫事數據。",
+                "hub_c4_link": "檢視檢驗項目",
+                "calc_tag": "MitoActiveLife Calcium Science",
+                "calc_title": "活\"粒\"果汁牛奶鈣<br>咀嚼錠系列",
+                "calc_desc": "我們打破盲目補鈣的迷思。譯軒生技「活\"粒\"果汁牛奶鈣咀嚼錠」引入 **MitoActiveLife 細胞重燃計畫**：採用 4OA 有機複合鈣系統（牛奶鈣、珍珠鈣、乳酸鈣、海藻鈣），不傷腸胃、不依賴胃酸；協同 D3+MK7 骨骼雙因子 與 QuMA 粒線體關鍵調控因子 (Q10 + PQQ)，落實「**好吃比含量重要、利用比吸收重要**」的補給新標準，讓補鈣不僅是骨骼礦化，更是全身細胞能量再生。",
+                "calc_f1": "4OA 有機複合鈣 × D3/MK7",
+                "calc_f1_d": "融合牛奶鈣、珍珠鈣、乳酸鈣、海藻鈣，克服一般碳酸鈣吸收率低的缺點。D3 打開腸道吸收閘門，MK7 羧化活化骨鈣素，精準引導鈣質沉積於骨骼，避免血管鈣化。",
+                "calc_f2": "QuMA 粒線體復興 & 粒線體關鍵調控",
+                "calc_f2_d": "還原型 CoQ10 提速現有發電效率，PQQ 刺激 PGC-1α 促進粒線體新生。配合關鍵調控因子活化細胞能量通路，優化細胞呼吸鏈與能量利用，真正達到「利用比吸收重要」的細胞能效革命。",
+                "calc_f3": "MDSNV 燕窩酸奈米囊體遞送",
+                "calc_f3_d": "乳源奈米囊泡完整包覆活性，繞過消化系統屏障，完整抵達小腸。腸細胞能動性內吞吸收，吸收效率呈幾何級倍增。",
+                "calc_btn": "產品與數據諮詢",
+                "oem_tag": "OEM / ODM Laboratory",
+                "oem_title": "保健食品代工研發",
+                "oem_desc": "我們擁有自主的原料供應鏈與配方開發實驗室，專門協助品牌快速研發出具備醫學實證數據的高效能產品。提供包含膠囊、錠劑、散劑、顆粒、軟膠囊及機能飲品等六大核心劑型。",
+                "oem_btn": "索取劑型打樣方案",
+                "pet_tag": "Pet Oral Care & Joint Support",
+                "pet_title": "寵物潔牙骨",
+                "pet_desc": "結合物理耐咬工藝與關節雙效守護。特別添加 天然蛋殼膜 (Eggshell Membrane) 與 高純度葡萄糖胺 (Glucosamine)，保護毛孩牙齒的同時，深層滋養關節軟骨，讓每一次磨牙撕咬都成為維護口腔健康與靈活關鍵的雙重保養。",
+                "pet_f1": "關節配方潔牙骨 S/M (蛋殼膜+葡萄糖胺)",
+                "pet_f1_d": "適合中小型犬及老齡犬。專為精準咀嚼咬合設計，蛋殼膜富含膠原蛋白，葡萄糖胺深層潤滑關節，潔齒無負擔。",
+                "pet_f2": "關節配方潔牙骨 M/L (強韌關節守護)",
+                "pet_f2_d": "大型犬專用耐咬款式。高濃度關節保養因子協同物理潔牙紋理，幫助好動毛孩維持關節活動力與清新口氣。",
+                "pork_form_title": "寵物潔牙骨訂購",
+                "pork_form_btn": "確認送出訂單",
+                "pork_success": "訂購完成！",
+                "pork_success_sub": "我們將與您進行出貨確認",
+                "lab_title": "大華檢驗所：醫學大數據核心",
+                "lab_desc": "深耕醫檢領域，通過國家級標準審核，為 LDTs（實驗室開發檢測）核可單位。提供精準的微菌叢、生化及免疫學檢測，以無懈可擊的數據捍衛健康。",
+                "lab_btn": "臨床檢測合作洽詢",
+                "book_tag": "Form Submission",
+                "book_title": "預約專業諮詢",
+                "book_sub": "\"Precision nutrition backed by medical data.\"",
+                "book_btn": "送出諮詢請求",
+                "book_success": "預約資料已成功送出",
+                "book_success_sub": "專員將於服務時間內盡快與您聯繫。",
+                "footer_desc": "深耕預防醫學與精準微菌，致力為生命提供最誠實、最科學的健康支持方案。",
+                "footer_net": "服務網絡",
+                "footer_net_sub": "精準檢測中心 · 全球臨床應用",
+                "ph_name": "您的姓名 / 單位名稱",
+                "ph_phone": "聯絡電話",
+                "ph_select_consult": "請選擇諮詢項目",
+                "ph_desc": "請描述您的具體需求...",
+                "ph_p_name": "訂購人姓名",
+                "ph_p_phone": "聯絡電話",
+                "ph_p_select": "選購關節配方潔牙骨款式",
+                "ph_p_addr": "收件地址與配送備註事項",
+                "opt_c1": "活\"粒\"果汁牛奶鈣咀嚼錠諮詢",
+                "opt_c2": "保健食品代工研發需求",
+                "opt_c3": "寵物潔牙骨產品合作",
+                "opt_c4": "大華檢驗所臨床合作",
+                "opt_p1": "關節配方潔牙骨 S/M (適合中小型犬)",
+                "opt_p2": "關節配方潔牙骨 M/L (適合大型犬)",
+                "opt_p3": "關節配方潔牙骨體驗包"
+            },
+            "en": {
+                "nav_businesses": "Our Core Businesses",
+                "nav_calcium": "Active \"Mito\" Calcium",
+                "nav_oem": "Supplement OEM",
+                "nav_pet": "Pet Dental Bones",
+                "nav_booking": "Expert Booking",
+                "hero_tag": "🧬 MitoActiveLife Energy Activation Science",
+                "hero_title": "Precision Biotech,<br><span class='text-sky-600'>Cellular Reignited.</span>",
+                "hero_sub": "Yixuan Biotech leads the trend of longevity science and preventive medicine. Through a strategic alliance with Dahua Medical Laboratory, we transform clinical biochemical testing data into precise energy supplement solutions tailored for the whole family and pets.",
+                "hero_btn": "Explore Businesses",
+                "hero_fb": "FB Official Community",
+                "hub_tag": "Our Business Grid",
+                "hub_title": "Four Business Pillars",
+                "hub_sub": "An integrated wellness ecosystem blending diagnostic testing with cellular rejuvenation.",
+                "hub_c1_title": "Active \"Mito\" Calcium",
+                "hub_c1_desc": "4OA Organic Complex Calcium system paired with key mitochondrial regulation to precisely ignite cellular efficiency.",
+                "hub_c1_link": "View Product Details",
+                "hub_c2_title": "Supplement OEM/ODM",
+                "hub_c2_desc": "Six core dosage forms, offering one-stop services from scientific formulation to regulatory packaging.",
+                "hub_c2_link": "Learn About OEM Services",
+                "hub_c3_title": "Pet Dental Bones",
+                "hub_c3_desc": "Combining durable chew structures with joint support formulas. Enriched with Natural Eggshell Membrane and Glucosamine.",
+                "hub_c3_link": "Explore Dental Bones",
+                "hub_c4_title": "Dahua Laboratory",
+                "hub_c4_desc": "Strictly adhering to LDTs & ISO quality standards to deliver highly accurate clinical data.",
+                "hub_c4_link": "View Diagnostic Services",
+                "calc_tag": "MitoActiveLife Calcium Science",
+                "calc_title": "Active \"Mito\" Juice Milk Calcium<br>Chewable Series",
+                "calc_desc": "We break the myth of blind calcium supplementation. Yixuan Biotech's 'Active \"Mito\" Juice Milk Calcium Chewable' introduces the **MitoActiveLife Cellular Reignited Program**: utilizing the 4OA Organic Complex Calcium system (Milk, Pearl, Lactate, and Algae Calcium) that is gentle on the stomach and independent of gastric acid; synergized with D3+MK7 bone co-factors and QuMA Mitochondrial Key Regulation, establishing a new supplement standard where **'taste is more important than content' and 'utilization is more important than absorption'**, ensuring calcium supplementation is not just bone mineralization, but total cellular energy regeneration.",
+                "calc_f1": "4OA Organic Complex Calcium × D3/MK7",
+                "calc_f1_d": "Blending Milk, Pearl, Lactate, and Algae calcium to overcome the low absorption rate of calcium carbonate. D3 opens the intestinal absorption gate, while MK7 carboxylates and activates osteocalcin, guiding calcium directly to bones to avoid vascular calcification.",
+                "calc_f2": "QuMA Mitochondrial Revival & Key Regulation",
+                "calc_f2_d": "Reduced CoQ10 boosts current power generation efficiency, and PQQ stimulates PGC-1α to promote mitochondrial biogenesis, optimizing cellular energy pathways to realize the value of 'utilization over absorption'.",
+                "calc_f3": "MDSNV Sialic Acid Nano Vehicle Delivery",
+                "calc_f3_d": "Milk-derived nanovesicles encapsulate active ingredients to bypass digestive barriers and arrive fully at the small intestine, triggering endocytosis-mediated absorption for geometric efficiency leaps.",
+                "calc_btn": "Product & Data Consultation",
+                "oem_btn": "Request Sampling Plan",
+                "pet_tag": "Pet Oral Care & Joint Support",
+                "pet_title": "Pet Dental Bones",
+                "pet_desc": "Combining physical chewing craft with dual joint protection. Specifically enriched with Natural Eggshell Membrane and High-Purity Glucosamine, it protects your pet's teeth while deeply nourishing joint cartilage, turning every chew into a double care session for oral health and agility.",
+                "pet_f1": "Joint Formula Dental Bone S/M (Eggshell Membrane + Glucosamine)",
+                "pet_f1_d": "Perfect for small to medium dogs and aging dogs. Designed for precise chew-and-bite alignment. Eggshell membrane is rich in collagen, and glucosamine deeply lubricates joints for effortless dental cleaning.",
+                "pet_f2": "Joint Formula Dental Bone M/L (Robust Joint Guard)",
+                "pet_f2_d": "Specially formulated for large dogs. High-concentration joint-care factors paired with physical cleaning textures help active pets maintain joint mobility and clean breath.",
+                "pork_form_title": "Order Pet Dental Bones",
+                "pork_form_btn": "Confirm Order",
+                "pork_success": "Order Placed!",
+                "pork_success_sub": "We will contact you shortly for shipping confirmation.",
+                "lab_title": "Dahua Lab: Core of Medical Big Data",
+                "lab_desc": "Deeply rooted in medical testing, Dahua Lab is fully certified by national standards and recognized for LDTs. We provide highly precise microbiome, biochemical, and immunological testing to safeguard health with bulletproof data.",
+                "lab_btn": "Inquire Clinical Cooperation",
+                "book_tag": "Form Submission",
+                "book_title": "Book Expert Consultation",
+                "book_sub": "\"Precision nutrition backed by medical data.\"",
+                "book_btn": "Submit Request",
+                "book_success": "Reservation Successfully Submitted",
+                "book_success_sub": "Our specialist will contact you as soon as possible during business hours.",
+                "footer_desc": "Pioneering preventive medicine and precision microflora, committed to providing the most honest and scientific health support for life.",
+                "footer_net": "Service Network",
+                "footer_net_sub": "Precision Diagnostic Centers · Global Clinical Applications",
+                "ph_name": "Your Name / Organization Name",
+                "ph_phone": "Contact Phone Number",
+                "ph_select_consult": "Please Select Consultation Item",
+                "ph_desc": "Please describe your specific requirements...",
+                "ph_p_name": "Orderer's Name",
+                "ph_p_phone": "Contact Phone",
+                "ph_p_select": "Select Joint Formula Dental Bone Type",
+                "ph_p_addr": "Shipping Address and Delivery Notes",
+                "opt_c1": "Active \"Mito\" Fruit Milk Calcium Chewable Consultation",
+                "opt_c2": "Supplement OEM/ODM R&D Requirement",
+                "opt_c3": "Pet Dental Bone Product Cooperation",
+                "opt_c4": "Dahua Laboratory Clinical Collaboration",
+                "opt_p1": "Joint Formula Dental Bone S/M (Small/Med Dogs)",
+                "opt_p2": "Joint Formula Dental Bone M/L (Large Dogs)",
+                "opt_p3": "Joint Formula Dental Bone Trial Pack"
+            },
+            "ja": {
+                "nav_businesses": "四大事業部",
+                "nav_calcium": "活\"粒\"果汁カルシウム",
+                "nav_oem": "サプリ受託製造",
+                "nav_pet": "ペット用デンタルボーン",
+                "nav_booking": "専門家予約",
+                "hero_tag": "🧬 MitoActiveLife エネルギー活性化科学",
+                "hero_title": "精密バイオ、<br><span class='text-sky-600'>細胞の再燃。</span>",
+                "hero_sub": "訳軒バイオ（YIXUAN）は、長寿科学と予防医学のトレンドをリードしています。大華医学検査所との戦略的提携により、臨床生化学検査データを家族全員とペットに合わせた精密なエネルギー補給ソリューションへと変換します。",
+                "hero_btn": "コア事業を見る",
+                "hero_fb": "FB 公式コミュニティ",
+                "hub_tag": "Our Business Grid",
+                "hub_title": "4大事業ドメイン",
+                "hub_sub": "データ測定と細胞再燃が完璧に統合された健康システム",
+                "hub_c1_title": "活\"粒\"果汁カルシウム",
+                "hub_c1_desc": "4OA有機複合カルシウムシステムとミトコンドリアのキーコントロールを組み合わせ、細胞のエネルギー効率を精密に点火。",
+                "hub_c1_link": "製品の紹介を見る",
+                "hub_c2_title": "サプリメント受託製造",
+                "hub_c2_desc": "6つの主要剤型に対応し、科学的配合設計、試作から各種規制対応パッケージまで一貫したサービスを提供。",
+                "hub_c2_link": "OEM受託サービスを知る",
+                "hub_c3_title": "ペット用デンタルボーン",
+                "hub_c3_desc": "ペットのデンタルケアに特化。耐久性のある噛み構造と関節ケア配合（卵殻膜、グルコサミン）を融合。",
+                "hub_c3_link": "デンタルボーンを見る",
+                "hub_c4_title": "大華検査所",
+                "hub_c4_desc": "LDTsおよびISO品質認証を厳格に遵守し、極めて精度の高い臨床データを提供します。",
+                "hub_c4_link": "検査項目を確認",
+                "calc_tag": "MitoActiveLife Calcium Science",
+                "calc_title": "活\"粒\"フルーツ果汁ミルクカルシウム<br>チュアラブルシリーズ",
+                "calc_desc": "私たちは、単なるやみくもなカルシウム補給の迷信を打破します。訳軒バイオの「活\"粒\"フルーツ果汁ミルクカルシウムチュアラブル」は、**MitoActiveLife 細胞再燃プログラム** を導入。4OA有機複合カルシウムシステム（ミルク、真珠、乳酸、海藻カルシウム）を採用し、胃腸を傷つけず、胃酸にも依存しません。さらに、D3+MK7骨格ダブル因子、およびQuMAミトコンドリアキーコントロールを調和させ、**「美味しさは含有量よりも重要であり、利用率は吸収率よりも重要である」**というサプリメントの新しい基準を実証し、骨の石灰化だけでなく、全身の細胞エネルギーを再生させます。",
+                "calc_f1": "4OA 有機複合カルシウム × D3/MK7",
+                "calc_f1_d": "ミルク、真珠、乳酸、海藻カルシウムを融合させ、一般的な炭酸カルシウムの低い吸収率を克服。D3が腸の吸収ゲートを開き、MK7がオステオカルシンをカルボキシル化して活性化し、カルシウムを血管の石灰化を避けつつ精密に骨へ誘導します。",
+                "calc_f2": "QuMA ミトコンドリア復活＆キーコントロール",
+                "calc_f2_d": "還元型CoQ10が現在の発電効率を向上させ、PQQがPGC-1αを刺激して新しいミトコンドリアの新生を促進。細胞のエネルギー回路を活性化し、利用効率を最適化することで、「利用率は吸収率よりも重要である」ことを実現します。",
+                "calc_f3": "MDSNV シアル酸ナノカプセルデリバリー",
+                "calc_f3_d": "乳由来のナノベシクルが活性成分を完全に包み込み、消化器官のバリアを回避して小腸に到達。腸細胞の活性的なエンドサイトーシスによる吸収を促し、吸収効率を飛躍的に高めます。",
+                "calc_btn": "製品＆データ相談",
+                "oem_btn": "試作サンプルの提案を請求",
+                "pet_tag": "Pet Oral Care & Joint Support",
+                "pet_title": "ペット用デンタルボーン",
+                "pet_desc": "物理的な噛み心地の良さと関節ダブルケアを融合。天然の卵殻膜 (Eggshell Membrane) と高純度グルコサミン (Glucosamine) を特別配合。ペットの歯を守りながら関節軟骨に潤いを与え、噛むたびに口腔内と関節の健康を同時にサポートします。",
+                "pet_f1": "関節ケアデンタルボーン S/M (卵殻膜+グルコサミン配合)",
+                "pet_f1_d": "中・小型犬およびシニア犬に最適。精密に計算された咀嚼の噛み合わせ設計。卵殻膜にはコラーゲンが豊富に含まれ、グルコサミンが関節の動きをサポートし、スムーズなデンタルケアを実現します。",
+                "pet_f2": "関節ケアデンタルボーン M/L (強力な関節ガード)",
+                "pet_f2_d": "大型犬専用の耐久性に優れたモデル。高濃度の関節ケア因子と独自の噛み口凹凸構造により、活発なペットの関節可動性と爽やかな息を維持します。",
+                "pork_form_title": "デンタルボーンを注文する",
+                "pork_form_btn": "注文を送信",
+                "pork_success": "注文が完了しました！",
+                "pork_success_sub": "発送確認のため、追ってご連絡いたします。",
+                "lab_title": "大華検査所：医学データの中枢",
+                "lab_desc": "医療検査の分野で深く根差し、国家基準の厳格な審査を通過。LDTs（検査室開発検査）の認可取得施設。高い測定精度を持つマイクロバイオーム、生化学、免疫検査を提供し、確固たるデータで健康を守ります。",
+                "lab_btn": "臨床検査協力について問い合わせ",
+                "book_tag": "Form Submission",
+                "book_title": "専門家のコンサルテーション予約",
+                "book_sub": "\"Precision nutrition backed by medical data.\"",
+                "book_btn": "相談リクエストを送信",
+                "book_success": "予約情報が正常に送信されました",
+                "book_success_sub": "営業時間内に担当者より速やかにご連絡いたします。",
+                "footer_desc": "予防医学と精密マイクロバイオーム分野を深耕し、誠実かつ科学的なアプローチで生涯の健康をサポートします。",
+                "footer_net": "サービスネットワーク",
+                "footer_net_sub": "精密測定センター ・ グローバル臨床應用",
+                "ph_name": "お名前 / 法人・団体名",
+                "ph_phone": "ご連絡先電話番号",
+                "ph_select_consult": "相談項目を選択してください",
+                "ph_desc": "具体的なご要望をご記入ください...",
+                "ph_p_name": "注文者氏名",
+                "ph_p_phone": "電話番号",
+                "ph_p_select": "関節ケアデンタルボーンのタイプを選択",
+                "ph_p_addr": "お届け先住所および配送メモ",
+                "opt_c1": "活\"粒\"カルシウムチュアラブル錠に関する相談",
+                "opt_c2": "サプリメントOEM/ODM受託製造に関する相談",
+                "opt_c3": "ペット用デンタルボーンの製品提携に関する相談",
+                "opt_c4": "大華検査所臨床連携に関する相談",
+                "opt_p1": "関節ケアデンタルボーン S/M (中・小型犬向け)",
+                "opt_p2": "関節ケアデンタルボーン M/L (大型犬向け)",
+                "opt_p3": "関節ケアデンタルボーン体験パック"
+            },
+            "zh-Hans": {
+                "nav_businesses": "四大事业",
+                "nav_calcium": "活\"粒\"果汁牛奶钙",
+                "nav_oem": "保健代工",
+                "nav_pet": "宠物洁牙骨",
+                "nav_booking": "专家预约",
+                "hero_tag": "🧬 MitoActiveLife 能量活化科学",
+                "hero_title": "精密生技，<br><span class='text-sky-600'>细胞重燃。</span>",
+                "hero_sub": "译轩生技引领长寿科学与预防医学风潮，与大华医学检验所策略结盟，将临床生化检测数据转化为专属于全家与宠物的精准能量补充方案。",
+                "hero_btn": "点击核心事业",
+                "hero_fb": "FB 官方社群",
+                "hub_tag": "Our Business Grid",
+                "hub_title": "四大事业版图",
+                "hub_sub": "数据检测与细胞重燃完美整合的健康体系",
+                "hub_c1_title": "活\"粒\"果汁牛奶钙",
+                "hub_c1_desc": "4OA有机复合钙系统配合线粒体关键调控，精准点火细胞能效。",
+                "hub_c1_link": "查看产品介绍",
+                "hub_c2_title": "保健食品代工",
+                "hub_c2_desc": "六大核心剂型，提供科研配方、打样到法规包装的一站式服务。",
+                "hub_c2_link": "了解代工服务",
+                "hub_c3_title": "宠物洁牙骨",
+                "hub_c3_desc": "结合物理耐咬工艺与关节双效守护。添加天然蛋壳膜与高纯度葡萄糖胺，维护口腔与骨骼健康。",
+                "hub_c3_link": "探索洁牙骨产品",
+                "hub_c4_title": "大华检验所",
+                "hub_c4_desc": "严格遵循 LDTs 与 ISO 质量认证，提供高准确度临床医事数据。",
+                "hub_c4_link": "检视检验项目",
+                "calc_tag": "MitoActiveLife Calcium Science",
+                "calc_title": "活\"粒\"果汁牛奶钙<br>咀嚼片系列",
+                "calc_desc": "我们打破盲目补钙的迷思。译轩生技「活\"粒\"果汁牛奶钙咀嚼片」引入 **MitoActiveLife 细胞重燃计划**：采用 4OA 有机复合钙系统（牛奶钙、珍珠钙、乳酸钙、海藻钙），不伤肠胃、不依赖胃酸；协同 D3+MK7 骨骼双因子 与 QuMA 线粒体关键调控因子 (Q10 + PQQ)，落实「**好吃比含量重要、利用比吸收重要**」的补给新标准，让补钙不仅是骨骼矿化，更是全身细胞能量再生。",
+                "calc_f1": "4OA 有机复合钙 × D3/MK7",
+                "calc_f1_d": "融合牛奶钙、珍珠钙、乳酸钙、海藻钙，克服一般碳酸钙吸收率低的缺点。D3 打开肠道吸收闸门，MK7 羧化活化骨钙素，精准引导钙质沉积于骨骼，避免血管钙化。",
+                "calc_f2": "QuMA 线粒体复兴 & 线粒体关键调控",
+                "calc_f2_d": "还原型 CoQ10 提速现有发电效率，PQQ 刺激 PGC-1α 促进线粒体新生。配合关键调控因子活化细胞能量通路，优化细胞呼吸链与能量利用，真正达到「利用比吸收重要」的细胞能效革命。",
+                "calc_f3": "MDSNV 燕窝酸纳米囊体递送",
+                "calc_f3_d": "乳源纳米囊泡完整包覆活性，绕过消化系统屏障，完整抵达小肠。肠细胞能动性内吞吸收，吸收效率呈几何级倍增。",
+                "calc_btn": "产品与数据咨询",
+                "oem_btn": "索取剂型打样方案",
+                "pet_tag": "Pet Oral Care & Joint Support",
+                "pet_title": "宠物洁牙骨",
+                "pet_desc": "结合物理耐咬工艺与关节双效守护。特别添加 天然蛋壳膜 (Eggshell Membrane) 与 高纯度葡萄糖胺 (Glucosamine)，保护毛孩牙齿的同时，深层滋养关节软骨，让每一次磨牙撕咬都成为维护口腔健康与灵活关键的双重保养。",
+                "pet_f1": "关节配方洁牙骨 S/M (蛋壳膜+葡萄糖胺)",
+                "pet_f1_d": "适合中小型犬及老龄犬。专为精准咀嚼咬合设计，蛋壳膜富含胶原蛋白，葡萄糖胺深层润滑关节，洁齿无负担。",
+                "pet_f2": "关节配方洁牙骨 M/L (强韧关节守护)",
+                "pet_f2_d": "大型犬专用耐咬款式。高浓度关节保养因子协同物理洁牙纹理，帮助好动毛孩维持关节活动力与清新口气。",
+                "pork_form_title": "宠物洁牙骨订购",
+                "pork_form_btn": "确认送出订单",
+                "pork_success": "订购完成！",
+                "pork_success_sub": "我们将与您进行出货确认",
+                "lab_title": "大华检验所：医学大数据核心",
+                "lab_desc": "深耕医检领域，通过国家级标准审核，為 LDTs（实验室开发检测）核可单位。提供精准的微菌丛、生化及免疫学检测，以无懈可击的数据捍卫健康。",
+                "lab_btn": "临床检测合作洽询",
+                "book_tag": "Form Submission",
+                "book_title": "预约专业咨询",
+                "book_sub": "\"Precision nutrition backed by medical data.\"",
+                "book_btn": "送出咨询请求",
+                "book_success": "预约资料已成功送出",
+                "book_success_sub": "专员将于服务时间内尽快与您联系。",
+                "footer_desc": "深耕预防医学与精准微菌，致力為生命提供最诚实、最科学的健康支持方案。",
+                "footer_net": "服务网络",
+                "footer_net_sub": "精准检测中心 · 全球临床应用",
+                "ph_name": "您的姓名 / 单位名称",
+                "ph_phone": "联络电话",
+                "ph_select_consult": "请选择咨询项目",
+                "ph_desc": "请描述您的具体需求...",
+                "ph_p_name": "订购人姓名",
+                "ph_p_phone": "联络电话",
+                "ph_p_select": "选购关节配方洁牙骨款式",
+                "ph_p_addr": "收件地址与配送备注事项",
+                "opt_c1": "活\"粒\"果汁牛奶钙咀嚼片咨询",
+                "opt_c2": "保健食品代工研发需求",
+                "opt_c3": "宠物洁牙骨产品合作",
+                "opt_c4": "大华检验所临床合作",
+                "opt_p1": "关节配方洁牙骨 S/M (适合中小型犬)",
+                "opt_p2": "关节配方洁牙骨 M/L (适合大型犬)",
+                "opt_p3": "关节配方洁牙骨体验包"
+            }
+        };
+
+        // 核心切換語言邏輯 (持久化至 localStorage)
+        function changeLanguage(lang) {
+            document.documentElement.lang = lang;
+            localStorage.setItem("yixuan_lang", lang);
+
+            const dict = translations[lang];
+            if (!dict) return;
+
+            // 1. 替換一般有 data-i18n 的文字元素
+            const elements = document.querySelectorAll("[data-i18n]");
+            elements.forEach(el => {
+                const key = el.getAttribute("data-i18n");
+                if (dict[key]) {
+                    el.innerHTML = dict[key];
+                }
+            });
+
+            // 2. 替換 Placeholders 屬性
+            const inputs = document.querySelectorAll("[data-i18n-ph]");
+            inputs.forEach(input => {
+                const key = input.getAttribute("data-i18n-ph");
+                if (dict[key]) {
+                    input.placeholder = dict[key];
+                }
+            });
+
+            // 3. 確保語言切換選單同步
+            const selectEls = document.querySelectorAll(".lang-selector");
+            selectEls.forEach(sel => {
+                sel.value = lang;
+            });
+        }
+
+        // 初始化載入語系
+        window.addEventListener("DOMContentLoaded", () => {
+            const savedLang = localStorage.getItem("yixuan_lang") || "zh-Hant";
+            changeLanguage(savedLang);
+        });
+
+        // 追蹤 Google Form 提交狀態的變數
         var submitted = false;
         var porkSubmitted = false;
 
+        // 專家諮詢表單提交成功的回呼
         function handleFormSuccess() {
             if (submitted) {
                 document.getElementById('appointmentForm').classList.add('hidden');
@@ -137,35 +489,12 @@
             }
         }
 
+        // 寵物潔牙骨訂單提交成功的回呼
         function handlePorkFormSuccess() {
             if (porkSubmitted) {
                 document.getElementById('porkOrderForm').classList.add('hidden');
                 document.getElementById('porkSuccessMessage').classList.remove('hidden');
                 document.getElementById('pork-section').scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        // 核心導覽與勾稽設定
-        function navigateToBusiness(sectionId, typeValue) {
-            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-            if (typeValue) {
-                const selectElement = document.querySelector('select[name="entry.103362142"]');
-                if (selectElement) { selectElement.value = typeValue; }
-            }
-        }
-
-        function selectConsultType(typeValue) {
-            const selectElement = document.querySelector('select[name="entry.103362142"]');
-            if (selectElement) { selectElement.value = typeValue; }
-            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // 圖片加載成功時隱藏備援文字
-        function onImageLoad(imgElement) {
-            const label = imgElement.previousElementSibling;
-            if (label && label.classList.contains('img-fallback-label')) {
-                label.style.opacity = '0';
-                setTimeout(() => label.style.display = 'none', 300);
             }
         }
     </script>
@@ -175,12 +504,12 @@
     <iframe name="hidden_iframe" id="hidden_iframe" onload="handleFormSuccess()"></iframe>
     <iframe name="pork_hidden_iframe" id="pork_hidden_iframe" onload="handlePorkFormSuccess()"></iframe>
 
-    <!-- 社交渠道懸浮 (LINE更新為 @932cczax) -->
+    <!-- 社交渠道懸浮 (LINE 統一為最新: @932cczax, FB 統一為大華: dahualabpeng) -->
     <div class="social-fab">
-        <a href="https://www.facebook.com/dahualabpeng" target="_blank" class="fab-btn bg-[#1877F2] shadow-lg shadow-blue-500/20" title="Facebook 專頁">
+        <a href="https://www.facebook.com/dahualabpeng" target="_blank" class="fab-btn bg-[#1877F2] shadow-lg shadow-blue-500/20" title="Facebook">
             <i class="fab fa-facebook-f"></i>
         </a>
-        <a href="https://line.me/ti/p/@932cczax" target="_blank" class="fab-btn bg-[#06C755] shadow-lg shadow-green-500/20" title="LINE 專員">
+        <a href="https://line.me/ti/p/@932cczax" target="_blank" class="fab-btn bg-[#06C755] shadow-lg shadow-green-500/20" title="LINE">
             <i class="fab fa-line"></i>
         </a>
     </div>
@@ -195,12 +524,33 @@
                     <div class="text-[8px] text-orange-500 font-bold uppercase tracking-[0.2em] leading-none mt-1">YIXUAN BIO-TECH</div>
                 </div>
             </div>
-            <div class="hidden lg:flex gap-10 text-[11px] font-black uppercase tracking-widest text-slate-400 items-center">
-                <a href="#business-hub" class="hover:text-slate-900">四大事業</a>
-                <a href="#calcium-tablet" class="hover:text-slate-900">兒童果汁牛奶鈣</a>
-                <a href="#supplement-odm" class="hover:text-slate-900">保健代工</a>
-                <a href="#pet-nutrition" class="hover:text-slate-900">寵物潔牙骨</a>
-                <a href="#booking" class="px-6 py-2.5 bg-slate-900 text-white rounded-full hover:bg-orange-500 transition">專家預約</a>
+            
+            <div class="hidden lg:flex gap-8 text-[11px] font-black uppercase tracking-widest text-slate-400 items-center">
+                <a href="#business-hub" class="hover:text-slate-900" data-i18n="nav_businesses">四大事業</a>
+                <a href="#calcium-tablet" class="hover:text-slate-900" data-i18n="nav_calcium">活"粒"果汁牛奶鈣</a>
+                <a href="#supplement-odm" class="hover:text-slate-900" data-i18n="nav_oem">保健代工</a>
+                <a href="#pet-nutrition" class="hover:text-slate-900" data-i18n="nav_pet">寵物潔牙骨</a>
+                <a href="#booking" class="px-5 py-2 bg-slate-900 text-white rounded-full hover:bg-orange-500 transition" data-i18n="nav_booking">專家預約</a>
+                
+                <!-- 語系切換下拉選單 (桌機端) -->
+                <div class="relative">
+                    <select onchange="changeLanguage(this.value)" class="lang-selector bg-slate-100 border border-slate-200 text-slate-800 text-[10px] font-extrabold rounded-lg px-2 py-1 outline-none cursor-pointer">
+                        <option value="zh-Hant">繁中</option>
+                        <option value="en">EN</option>
+                        <option value="ja">日本語</option>
+                        <option value="zh-Hans">简中</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 行動端語系切換 (僅於中/小螢幕顯示) -->
+            <div class="lg:hidden flex items-center gap-2">
+                <select onchange="changeLanguage(this.value)" class="lang-selector bg-slate-100 border border-slate-200 text-slate-800 text-[10px] font-extrabold rounded-lg px-2 py-1 outline-none cursor-pointer">
+                    <option value="zh-Hant">繁中</option>
+                    <option value="en">EN</option>
+                    <option value="ja">日本語</option>
+                    <option value="zh-Hans">简中</option>
+                </select>
             </div>
         </div>
     </nav>
@@ -210,22 +560,21 @@
         <div class="max-w-7xl mx-auto w-full pt-20">
             <div class="grid lg:grid-cols-2 gap-16 items-center">
                 <div>
-                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-sky-50 text-sky-600 rounded-full text-[10px] font-black uppercase tracking-widest mb-6">
-                        <i class="fas fa-shield-halved"></i> 2009 諾貝爾生理醫學獎驗證科學
+                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-sky-50 text-sky-600 rounded-full text-[10px] font-black uppercase tracking-widest mb-6" data-i18n="hero_tag">
+                        🧬 MitoActiveLife 能量活化科學
                     </div>
-                    <h1 class="text-5xl md:text-7xl font-black text-slate-900 leading-none mb-8">
+                    <h1 class="text-5xl md:text-7xl font-black text-slate-900 leading-none mb-8" data-i18n="hero_title">
                         精準生技，<br><span class="text-sky-600">細胞重燃。</span>
                     </h1>
-                    <p class="text-slate-400 text-base md:text-lg mb-12 max-w-lg leading-relaxed">
+                    <p class="text-slate-400 text-base md:text-lg mb-12 max-w-lg leading-relaxed" data-i18n="hero_sub">
                         譯軒生技引領長壽科學與預防醫學風潮，與大華醫學檢驗所策略結盟，將臨床生化檢測數據轉化為專屬於全家與寵物的精準能量補充方案。
                     </p>
                     <div class="flex gap-4">
-                        <button onclick="document.getElementById('business-hub').scrollIntoView({ behavior: 'smooth' });" class="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold hover:shadow-lg transition">點選核心事業</button>
-                        <a href="https://www.facebook.com/dahualabpeng" target="_blank" class="px-8 py-4 bg-slate-50 text-[#1877F2] rounded-2xl font-bold border border-slate-100"><i class="fab fa-facebook mr-2"></i>FB 官方社群</a>
+                        <button onclick="document.getElementById('business-hub').scrollIntoView({ behavior: 'smooth' });" class="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold hover:shadow-lg transition" data-i18n="hero_btn">點選核心事業</button>
+                        <a href="https://www.facebook.com/dahualabpeng" target="_blank" class="px-8 py-4 bg-slate-50 text-[#1877F2] rounded-2xl font-bold border border-slate-100 flex items-center gap-2" data-i18n="hero_fb"><i class="fab fa-facebook"></i>FB 官方社群</a>
                     </div>
                 </div>
                 <div class="relative hidden lg:block">
-                    <!-- 鑲嵌大華檢驗所專業研究人員與設備照片 -->
                     <div class="w-full aspect-square rounded-[100px] rotate-3 overflow-hidden border-8 border-white shadow-2xl shadow-slate-200 img-wrapper">
                         <div class="img-fallback-label">
                             <i class="fas fa-chart-pie text-slate-300 text-8xl mb-4"></i>
@@ -242,74 +591,88 @@
     <section id="business-hub" class="py-24 bg-slate-50 px-6">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
-                <span class="text-sky-600 font-bold text-xs uppercase tracking-widest block mb-2">Our Business Grid</span>
-                <h2 class="text-4xl font-black mb-4 text-slate-900">四大事業版圖</h2>
-                <p class="text-slate-400 text-sm">數據檢測與細胞重燃完美整合的健康體系</p>
+                <span class="text-sky-600 font-bold text-xs uppercase tracking-widest block mb-2" data-i18n="hub_tag">Our Business Grid</span>
+                <h2 class="text-4xl font-black mb-4 text-slate-900" data-i18n="hub_title">四大事業版圖</h2>
+                <p class="text-slate-400 text-sm" data-i18n="hub_sub">數據檢測與細胞重燃完美整合的健康體系</p>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- 事業 1 -->
                 <div onclick="navigateToBusiness('calcium-tablet', '兒童果汁牛奶鈣咀嚼錠諮詢')" class="bio-card p-8">
                     <div class="w-14 h-14 bg-orange-50 text-orange-500 rounded-2xl flex items-center justify-center mb-8 text-2xl"><i class="fas fa-glass-milk"></i></div>
-                    <h3 class="font-black text-xl mb-3 text-slate-900">兒童果汁牛奶鈣</h3>
-                    <p class="text-slate-400 text-xs leading-relaxed mb-6">4OA有機複合鈣系統配合諾貝爾端粒復興路徑，精準點火細胞能效。</p>
-                    <span class="text-orange-500 font-bold text-xs flex items-center gap-2">查看產品介紹 <i class="fas fa-chevron-right text-[10px]"></i></span>
+                    <h3 class="font-black text-xl mb-3 text-slate-900" data-i18n="hub_c1_title">活"粒"果汁牛奶鈣</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6" data-i18n="hub_c1_desc">4OA有機複合鈣系統配合粒線體關鍵調控，精準點火細胞能效。</p>
+                    <span class="text-orange-500 font-bold text-xs flex items-center gap-2"><span data-i18n="hub_c1_link">查看產品介紹</span> <i class="fas fa-chevron-right text-[10px]"></i></span>
                 </div>
                 <!-- 事業 2 -->
                 <div onclick="navigateToBusiness('supplement-odm', '保健食品代工研發需求')" class="bio-card p-8">
                     <div class="w-14 h-14 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center mb-8 text-2xl"><i class="fas fa-microscope"></i></div>
-                    <h3 class="font-black text-xl mb-3 text-slate-900">保健食品代工</h3>
-                    <p class="text-slate-400 text-xs leading-relaxed mb-6">六大核心劑型，提供科研配方、打樣到法規包裝的一站式服務。</p>
-                    <span class="text-blue-500 font-bold text-xs flex items-center gap-2">了解代工服務 <i class="fas fa-chevron-right text-[10px]"></i></span>
+                    <h3 class="font-black text-xl mb-3 text-slate-900" data-i18n="hub_c2_title">保健食品代工</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6" data-i18n="hub_c2_desc">六大核心劑型，提供科研配方、打樣到法規包裝的一站式服務。</p>
+                    <span class="text-blue-500 font-bold text-xs flex items-center gap-2"><span data-i18n="hub_c2_link">了解代工服務</span> <i class="fas fa-chevron-right text-[10px]"></i></span>
                 </div>
                 <!-- 事業 3 -->
-                <div onclick="navigateToBusiness('pet-nutrition', '寵物潔牙骨產品合作')" class="bio-card bg-slate-900 p-8 text-white hover:border-red-500">
+                <div onclick="navigateToBusiness('pet-nutrition')" class="bio-card bg-slate-900 p-8 text-white hover:border-red-500">
                     <div class="w-14 h-14 bg-white/10 text-red-400 rounded-2xl flex items-center justify-center mb-8 text-2xl"><i class="fas fa-bone"></i></div>
-                    <h3 class="font-black text-xl mb-3">寵物潔牙骨</h3>
-                    <p class="text-slate-400 text-xs leading-relaxed mb-6">專注於毛孩潔牙工藝。結合耐咬結構與關節配方，研發全天然寵物潔齒食研。</p>
-                    <span class="text-red-400 font-bold text-xs flex items-center gap-2">探索潔牙骨產品 <i class="fas fa-chevron-right text-[10px]"></i></span>
+                    <h3 class="font-black text-xl mb-3" data-i18n="hub_c3_title">寵物潔牙骨</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6" data-i18n="hub_c3_desc">結合物理耐咬工藝與關節雙效守護。添加天然蛋殼膜與高純度葡萄糖胺，維護口腔與骨骼健康。</p>
+                    <span class="text-red-400 font-bold text-xs flex items-center gap-2"><span data-i18n="hub_c3_link">探索潔牙骨產品</span> <i class="fas fa-chevron-right text-[10px]"></i></span>
                 </div>
                 <!-- 事業 4 -->
                 <div onclick="navigateToBusiness('dahua-lab', '大華檢驗所臨床合作')" class="bio-card p-8">
                     <div class="w-14 h-14 bg-slate-50 text-slate-900 rounded-2xl flex items-center justify-center mb-8 text-2xl"><i class="fas fa-shield-virus"></i></div>
-                    <h3 class="font-black text-xl mb-3">大華檢驗所</h3>
-                    <p class="text-slate-400 text-xs leading-relaxed mb-6">嚴格遵循 LDTs 與 ISO 品質認證，提供高準確度臨床醫事數據。</p>
-                    <span class="text-slate-900 font-bold text-xs flex items-center gap-2">檢視檢驗項目 <i class="fas fa-chevron-right text-[10px]"></i></span>
+                    <h3 class="font-black text-xl mb-3 text-slate-900" data-i18n="hub_c4_title">大華檢驗所</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6" data-i18n="hub_c4_desc">嚴格遵循 LDTs 與 ISO 品質認證，提供高準確度臨床醫事數據。</p>
+                    <span class="text-slate-900 font-bold text-xs flex items-center gap-2"><span data-i18n="hub_c4_link">檢視檢驗項目</span> <i class="fas fa-chevron-right text-[10px]"></i></span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 區塊 1: 兒童果汁牛奶鈣咀嚼錠 -->
+    <!-- 區塊 1: 活"粒"果汁牛奶鈣咀嚼錠 (產品詳細介紹與核心推廣詞) -->
     <section id="calcium-tablet" class="section-split bg-white">
         <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
             <div class="order-2 lg:order-1">
-                <span class="text-orange-500 font-black tracking-widest text-xs mb-4 block uppercase font-mono">Nobel Prize 2009 & Telomere Science</span>
-                <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight">兒童果汁牛奶鈣<br>咀嚼錠系列</h2>
+                <span class="text-orange-500 font-black tracking-widest text-xs mb-4 block uppercase font-mono" data-i18n="calc_tag">MitoActiveLife Calcium Science</span>
+                <h2 class="text-4xl md:text-5xl font-black mb-6 leading-tight" data-i18n="calc_title">活"粒"果汁牛奶鈣<br>咀嚼錠系列</h2>
                 
-                <!-- 核心配方標籤 -->
+                <!-- 新增核心推展金句卡片 -->
+                <div class="grid grid-cols-2 gap-4 mb-8">
+                    <div class="bg-orange-50 border-l-4 border-orange-500 p-4 rounded-r-2xl shadow-sm">
+                        <div class="text-[9px] text-orange-400 font-bold uppercase tracking-wider">Concept 01</div>
+                        <div class="font-black text-slate-900 text-sm md:text-base">好吃比含量重要</div>
+                        <div class="text-[11px] text-slate-500 mt-1">美味無負擔，孩子樂意主動吃，才能實現持之以恆的真實補充。</div>
+                    </div>
+                    <div class="bg-sky-50 border-l-4 border-sky-500 p-4 rounded-r-2xl shadow-sm">
+                        <div class="text-[9px] text-sky-400 font-bold uppercase tracking-wider">Concept 02</div>
+                        <div class="font-black text-slate-900 text-sm md:text-base">利用比吸收重要</div>
+                        <div class="text-[11px] text-slate-500 mt-1">搭配粒線體關鍵調控，不只進入血液，更要精準點火利用、轉化動能。</div>
+                    </div>
+                </div>
+
+                <!-- 核心配方標籤 (移除 NMN) -->
                 <div class="mb-10 flex flex-wrap">
                     <div class="feature-tag">🌿 4OA 有機複合鈣</div>
                     <div class="feature-tag">☀️ D3 吸收閘門</div>
                     <div class="feature-tag">🦴 MK7 骨骼導向</div>
                     <div class="feature-tag">⚡ CoQ10 粒線體提速</div>
                     <div class="feature-tag">🔬 PQQ 粒線體新生</div>
-                    <div class="feature-tag">🧬 NMN 諾貝爾端粒修復</div>
+                    <div class="feature-tag">🧬 粒線體關鍵調控</div>
                     <div class="feature-tag">🚀 MDSNV 奈米遞送</div>
                 </div>
 
-                <p class="text-slate-500 text-base md:text-lg mb-10 leading-relaxed">
-                    我們打破盲目補鈣的迷思。譯軒生技「兒童果汁牛奶鈣」引入 **MitoActiveLife 細胞重燃計畫**：採用 <strong>4OA 有機複合鈣系統</strong>（牛奶鈣、珍珠鈣、乳酸鈣、海藻鈣），不傷腸胃、不依賴胃酸；協同 <strong>D3+MK7 骨骼雙因子</strong> 與 <strong>QuMA 粒線體三重能量因子 (Q10 + PQQ + NMN)</strong>，直接接通 2009 諾貝爾獎端粒活化路徑，讓補鈣不僅是骨骼礦化，更是全身細胞能量再生。
+                <p class="text-slate-500 text-base md:text-lg mb-10 leading-relaxed" data-i18n="calc_desc">
+                    我們打破盲目補鈣的迷思。譯軒生技「活\"粒\"果汁牛奶鈣咀嚼錠」引入 **MitoActiveLife 細胞重燃計畫**：採用 4OA 有機複合鈣系統（牛奶鈣、珍珠鈣、乳酸鈣、海藻鈣），不傷腸胃、不依賴胃酸；協同 D3+MK7 骨骼雙因子 與 QuMA 粒線體關鍵調控因子 (Q10 + PQQ)，落實「**好吃比含量重要、利用比吸收重要**」的補給新標準，讓補鈣不僅是骨骼礦化，更是全身細胞能量再生。
                 </p>
 
-                <!-- 細分機制說明 -->
+                <!-- 細分機制說明 (移除端粒/NMN) -->
                 <div class="space-y-6 mb-10">
                     <div class="flex gap-4">
                         <div class="shrink-0 w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center text-orange-500 border border-orange-100">
                             <i class="fas fa-cubes"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-slate-900 text-sm mb-1">4OA 有機複合鈣 × D3/MK7</h4>
-                            <p class="text-[12px] text-slate-500 leading-relaxed">融合牛奶鈣、珍珠鈣、乳酸鈣、海藻鈣，克服一般碳酸鈣吸收率低的缺點。D3 打開腸道吸收閘門，MK7 羧化活化骨鈣素，精準引導鈣質沉積於骨骼，避免血管血管鈣化。</p>
+                            <h4 class="font-bold text-slate-900 text-sm mb-1" data-i18n="calc_f1">4OA 有機複合鈣 × D3/MK7</h4>
+                            <p class="text-[12px] text-slate-500 leading-relaxed" data-i18n="calc_f1_d">融合牛奶鈣、珍珠鈣、乳酸鈣、海藻鈣，克服一般碳酸鈣吸收率低的缺點。D3 打開腸道吸收閘門，MK7 羧化活化骨鈣素，精準引導鈣質沉積於骨骼，避免血管鈣化。</p>
                         </div>
                     </div>
                     <div class="flex gap-4">
@@ -317,8 +680,8 @@
                             <i class="fas fa-battery-three-quarters"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-slate-900 text-sm mb-1">QuMA 粒線體復興 & 端粒修復</h4>
-                            <p class="text-[12px] text-slate-500 leading-relaxed">還原型 CoQ10 提速現有發電效率，PQQ 刺激 PGC-1α 促進粒線體新生。配合 NMN 轉化 NAD⁺，啟動 SIRT1/SIRT6 去乙醯化酶，上調端粒酶活性，逆轉細胞分裂極限。</p>
+                            <h4 class="font-bold text-slate-900 text-sm mb-1" data-i18n="calc_f2">QuMA 粒線體復興 & 粒線體關鍵調控</h4>
+                            <p class="text-[12px] text-slate-500 leading-relaxed" data-i18n="calc_f2_d">還原型 CoQ10 提速現有發電效率，PQQ 刺激 PGC-1α 促進粒線體新生。配合關鍵調控因子活化細胞能量通路，優化細胞呼吸鏈與能量利用，真正達到「利用比吸收重要」的細胞能效革命。</p>
                         </div>
                     </div>
                     <div class="flex gap-4">
@@ -326,21 +689,22 @@
                             <i class="fas fa-rocket"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-slate-900 text-sm mb-1">MDSNV 燕窩酸奈米囊體遞送</h4>
-                            <p class="text-[12px] text-slate-500 leading-relaxed">乳源奈米囊泡完整包覆活性，繞過消化系統屏障，完整抵達小腸。腸細胞能動性內吞吸收，吸收效率呈幾何級倍增。</p>
+                            <h4 class="font-bold text-slate-900 text-sm mb-1" data-i18n="calc_f3">MDSNV 燕窩酸奈米囊體遞送</h4>
+                            <p class="text-[12px] text-slate-500 leading-relaxed" data-i18n="calc_f3_d">乳源奈米囊泡完整包覆活性，繞過消化系統屏障，完整抵達小腸。腸細胞能動性內吞吸收，吸收效率呈幾何級倍增。</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="flex gap-4">
-                    <button onclick="selectConsultType('兒童果汁牛奶鈣咀嚼錠諮詢')" class="px-10 py-5 bg-orange-500 text-white rounded-[24px] font-black hover:shadow-xl transition">產品與數據諮詢</button>
+                    <button onclick="selectConsultType('兒童果汁牛奶鈣咀嚼錠諮詢')" class="px-10 py-5 bg-orange-500 text-white rounded-[24px] font-black hover:shadow-xl transition" data-i18n="calc_btn">產品與數據諮詢</button>
                 </div>
             </div>
+            
             <!-- 兒童成長情境照 -->
             <div class="order-1 lg:order-2 h-[500px] rounded-[60px] border border-orange-100 relative overflow-hidden img-wrapper shadow-xl">
                 <div class="img-fallback-label">
                     <i class="fas fa-prescription-bottle-medical text-orange-200 text-8xl mb-4"></i>
-                    <span class="text-xs text-orange-400 font-bold tracking-widest">[兒童果汁牛奶鈣健康概念]</span>
+                    <span class="text-xs text-orange-400 font-bold tracking-widest">[活"粒"果汁牛奶鈣健康概念]</span>
                 </div>
                 <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&q=80&w=800" alt="兒童在陽光下健康快樂地成長" class="w-full h-full object-cover relative z-10" onload="onImageLoad(this)" onerror="this.style.display='none'">
             </div>
@@ -350,7 +714,6 @@
     <!-- 區塊 2: 保健食品代工研發 -->
     <section id="supplement-odm" class="section-split bg-slate-900 text-white">
         <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
-            <!-- 鑲嵌高科技現代化製藥代工廠照片 -->
             <div class="h-[500px] rounded-[60px] border border-white/5 relative img-wrapper order-2 lg:order-1 shadow-2xl">
                 <div class="img-fallback-label bg-slate-800 text-slate-500">
                     <i class="fas fa-boxes-packing text-8xl mb-4"></i>
@@ -359,25 +722,25 @@
                 <img src="https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?auto=format&fit=crop&q=80&w=800" alt="現代化高科技無塵保健食品代工生產線" class="w-full h-full object-cover relative z-10 animate-pulse-slow" onload="onImageLoad(this)" onerror="this.style.display='none'">
             </div>
             <div class="order-1 lg:order-2">
-                <span class="text-sky-400 font-black tracking-widest text-xs mb-4 block uppercase font-mono">OEM / ODM Laboratory</span>
-                <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight">保健食品代工研發</h2>
-                <p class="text-slate-400 text-base md:text-lg mb-10 leading-relaxed">
+                <span class="text-sky-400 font-black tracking-widest text-xs mb-4 block uppercase font-mono" data-i18n="oem_tag">OEM / ODM Laboratory</span>
+                <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight" data-i18n="oem_title">保健食品代工研發</h2>
+                <p class="text-slate-400 text-base md:text-lg mb-10 leading-relaxed" data-i18n="oem_desc">
                     我們擁有自主的原料供應鏈與配方開發實驗室，專門協助品牌快速研發出具備醫學實證數據的高效能產品。提供包含膠囊、錠劑、散劑、顆粒、軟膠囊及機能飲品等六大核心劑型。
                 </p>
-                <button onclick="selectConsultType('保健食品代工研發需求')" class="px-10 py-5 bg-sky-600 text-white rounded-[24px] font-black hover:bg-sky-500 hover:shadow-xl transition">索取劑型打樣方案</button>
+                <button onclick="selectConsultType('保健食品代工研發需求')" class="px-10 py-5 bg-sky-600 text-white rounded-[24px] font-black hover:bg-sky-500 hover:shadow-xl transition" data-i18n="oem_btn">索取劑型打樣方案</button>
             </div>
         </div>
     </section>
 
-    <!-- 區塊 3: 寵物潔牙骨 (蛋殼膜+葡萄糖胺 關節配方) -->
+    <!-- 區塊 3: 寵物潔牙骨 -->
     <section id="pet-nutrition" class="py-32 bg-white px-6">
         <div class="max-w-7xl mx-auto">
             <div class="grid lg:grid-cols-3 gap-12">
                 <div class="lg:col-span-2">
-                    <span class="text-red-700 font-black text-xs uppercase tracking-widest block mb-4">Pet Oral Care & Joint Support</span>
-                    <h2 class="text-4xl md:text-5xl font-black mb-6">寵物潔牙骨</h2>
-                    <p class="text-slate-400 text-base mb-12">
-                        結合物理耐咬工藝與關節雙效守護。特別添加 <strong>天然蛋殼膜 (Eggshell Membrane)</strong> 與 <strong>高純度葡萄糖胺 (Glucosamine)</strong>，保護毛孩牙齒的同時，深層滋養關節軟骨，讓每一次磨牙撕咬都成為維護口腔健康與靈活關鍵的雙重保養。
+                    <span class="text-red-700 font-black text-xs uppercase tracking-widest block mb-4" data-i18n="pet_tag">Pet Oral Care & Joint Support</span>
+                    <h2 class="text-4xl md:text-5xl font-black mb-6" data-i18n="pet_title">寵物潔牙骨</h2>
+                    <p class="text-slate-400 text-base mb-12" data-i18n="pet_desc">
+                        結合物理耐咬工藝與關節雙效守護。特別添加 天然蛋殼膜 (Eggshell Membrane) 與 高純度葡萄糖胺 (Glucosamine)，保護毛孩牙齒的同時，深層滋養關節軟骨，讓每一次磨牙撕咬都成為維護口腔健康與靈活關鍵的雙重保養。
                     </p>
                     <div class="grid md:grid-cols-2 gap-6">
                         <!-- 關節配方潔牙骨 S/M 號 -->
@@ -388,8 +751,8 @@
                                 </div>
                                 <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=600" alt="關節配方潔牙骨 S/M 適合中小型犬" class="w-full h-full object-cover" onload="onImageLoad(this)" onerror="this.style.display='none'">
                             </div>
-                            <h4 class="font-bold text-slate-800 mb-2"><i class="fas fa-bone text-red-700 mr-2"></i> 關節配方潔牙骨 S/M (蛋殼膜+葡萄糖胺)</h4>
-                            <p class="text-xs text-slate-400 leading-relaxed">適合中小型犬及老齡犬。專為精準咀嚼咬合設計，蛋殼膜富含膠原蛋白，葡萄糖胺深層潤滑關節，潔齒無負擔。</p>
+                            <h4 class="font-bold text-slate-800 mb-2"><i class="fas fa-bone text-red-700 mr-2"></i> <span data-i18n="pet_f1">關節配方潔牙骨 S/M (蛋殼膜+葡萄糖胺)</span></h4>
+                            <p class="text-xs text-slate-400 leading-relaxed" data-i18n="pet_f1_d">適合中小型犬及老齡犬。專為精準咀嚼咬合設計，蛋殼膜富含膠原蛋白，葡萄糖胺深層潤滑關節，潔齒無負擔。</p>
                         </div>
                         <!-- 關節配方潔牙骨 M/L 號 -->
                         <div class="p-8 bg-slate-50 rounded-3xl border border-slate-100 hover:border-red-200 transition-colors">
@@ -399,31 +762,31 @@
                                 </div>
                                 <img src="https://images.unsplash.com/photo-1544568100-847a948585b9?auto=format&fit=crop&q=80&w=600" alt="關節配方潔牙骨 M/L 適合大型犬" class="w-full h-full object-cover" onload="onImageLoad(this)" onerror="this.style.display='none'">
                             </div>
-                            <h4 class="font-bold text-slate-800 mb-2"><i class="fas fa-shield-dog text-red-700 mr-2"></i> 關節配方潔牙骨 M/L (強韌關節守護)</h4>
-                            <p class="text-xs text-slate-400 leading-relaxed">大型犬專用耐咬款式。高濃度關節保養因子協同物理潔牙紋理，幫助好動毛孩維持關節活動力與清新口氣。</p>
+                            <h4 class="font-bold text-slate-800 mb-2"><i class="fas fa-shield-dog text-red-700 mr-2"></i> <span data-i18n="pet_f2">關節配方潔牙骨 M/L (強韌關節守護)</span></h4>
+                            <p class="text-xs text-slate-400 leading-relaxed" data-i18n="pet_f2_d">大型犬專用耐咬款式。高濃度關節保養因子協同物理潔牙紋理，幫助好動毛孩維持關節活動力與清新口氣。</p>
                         </div>
                     </div>
                 </div>
-                <!-- 寵物線上預訂 (Google Form對應) -->
+                <!-- 寵物線上預訂 -->
                 <div id="pork-section" class="bg-slate-900 rounded-[40px] p-10 text-white shadow-2xl relative overflow-hidden">
                     <div class="absolute -top-10 -right-10 w-40 h-40 bg-red-600/10 rounded-full"></div>
-                    <h3 class="text-2xl font-black mb-8 text-red-400">寵物潔牙骨訂購</h3>
+                    <h3 class="text-2xl font-black mb-8 text-red-400" data-i18n="pork_form_title">寵物潔牙骨訂購</h3>
                     <form id="porkOrderForm" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSei1lTkkSMJoOggasMStPr-0OkJE49voCZOAOpXZRSl3ySEZg/formResponse" method="POST" target="pork_hidden_iframe" onsubmit="porkSubmitted=true;" class="space-y-4 text-slate-900">
-                        <input type="text" name="entry.1466044719" required placeholder="訂購人姓名" class="w-full px-5 py-4 rounded-xl bg-white outline-none">
-                        <input type="tel" name="entry.206451642" required placeholder="聯絡電話" class="w-full px-5 py-4 rounded-xl bg-white outline-none">
+                        <input type="text" name="entry.1466044719" required data-i18n-ph="ph_p_name" placeholder="訂購人姓名" class="w-full px-5 py-4 rounded-xl bg-white outline-none">
+                        <input type="tel" name="entry.206451642" required data-i18n-ph="ph_p_phone" placeholder="聯絡電話" class="w-full px-5 py-4 rounded-xl bg-white outline-none">
                         <select name="entry.1884351368" required class="w-full px-5 py-4 rounded-xl bg-white outline-none appearance-none">
-                            <option value="">選購關節配方潔牙骨款式</option>
-                            <option value="關節配方潔牙骨 S/M (適合中小型犬)">關節配方潔牙骨 S/M (適合中小型犬)</option>
-                            <option value="關節配方潔牙骨 M/L (適合大型犬)">關節配方潔牙骨 M/L (適合大型犬)</option>
-                            <option value="關節配方潔牙骨體驗包">關節配方潔牙骨體驗包</option>
+                            <option value="" data-i18n="ph_p_select">選購關節配方潔牙骨款式</option>
+                            <option value="關節配方潔牙骨 S/M (適合中小型犬)" data-i18n="opt_p1">關節配方潔牙骨 S/M (適合中小型犬)</option>
+                            <option value="關節配方潔牙骨 M/L (適合大型犬)" data-i18n="opt_p2">關節配方潔牙骨 M/L (適合大型犬)</option>
+                            <option value="關節配方潔牙骨體驗包" data-i18n="opt_p3">關節配方潔牙骨體驗包</option>
                         </select>
-                        <textarea name="entry.1643916964" placeholder="收件地址與配送備註事項" class="w-full px-5 py-4 rounded-xl bg-white outline-none" rows="2"></textarea>
-                        <button type="submit" class="w-full py-4 bg-red-700 text-white rounded-xl font-black hover:bg-red-800 transition shadow-lg">確認送出訂單</button>
+                        <textarea name="entry.1643916964" data-i18n-ph="ph_p_addr" placeholder="收件地址與配送備註事項" class="w-full px-5 py-4 rounded-xl bg-white outline-none" rows="2"></textarea>
+                        <button type="submit" class="w-full py-4 bg-red-700 text-white rounded-xl font-black hover:bg-red-800 transition shadow-lg" data-i18n="pork_form_btn">確認送出訂單</button>
                     </form>
                     <div id="porkSuccessMessage" class="hidden text-center py-10">
                         <i class="fas fa-heart text-red-500 text-4xl mb-4"></i>
-                        <p class="font-bold text-white">訂購完成！</p>
-                        <p class="text-xs text-slate-400 mt-2">我們將與您進行出貨確認</p>
+                        <p class="font-bold text-white" data-i18n="pork_success">訂購完成！</p>
+                        <p class="text-xs text-slate-400 mt-2" data-i18n="pork_success_sub">我們將與您進行出貨確認</p>
                     </div>
                 </div>
             </div>
@@ -434,11 +797,11 @@
     <section id="dahua-lab" class="py-24 bg-slate-50 px-6">
         <div class="max-w-7xl mx-auto flex flex-col items-center text-center">
             <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-sm mb-12"><i class="fas fa-microscope text-3xl text-sky-600"></i></div>
-            <h2 class="text-4xl font-black mb-8">大華檢驗所：醫學大數據核心</h2>
-            <p class="max-w-2xl text-slate-500 text-base md:text-lg mb-12">
+            <h2 class="text-4xl font-black mb-8" data-i18n="lab_title">大華檢驗所：醫學大數據核心</h2>
+            <p class="max-w-2xl text-slate-500 text-base md:text-lg mb-12" data-i18n="lab_desc">
                 深耕醫檢領域，通過國家級標準審核，為 LDTs（實驗室開發檢測）核可單位。提供精準的微菌叢、生化及免疫學檢測，以無懈可擊的數據捍衛健康。
             </p>
-            <button onclick="selectConsultType('大華檢驗所臨床合作')" class="px-12 py-5 border-2 border-slate-900 rounded-2xl font-black hover:bg-slate-900 hover:text-white transition">臨床檢測合作洽詢</button>
+            <button onclick="selectConsultType('大華檢驗所臨床合作')" class="px-12 py-5 border-2 border-slate-900 rounded-2xl font-black hover:bg-slate-900 hover:text-white transition" data-i18n="lab_btn">臨床檢測合作洽詢</button>
         </div>
     </section>
 
@@ -447,29 +810,30 @@
         <div class="max-w-4xl mx-auto bg-slate-900 rounded-[60px] p-8 md:p-20 text-white border border-slate-800 shadow-2xl relative overflow-hidden">
             <div class="absolute -top-10 -left-10 w-40 h-40 bg-orange-500/5 rounded-full blur-3xl"></div>
             <div class="text-center mb-16">
-                <span class="text-orange-500 font-bold text-xs tracking-widest uppercase block mb-2">Form Submission</span>
-                <h2 class="text-4xl font-black mb-4">預約專業諮詢</h2>
-                <p class="text-slate-400 italic">"Precision nutrition backed by medical data."</p>
+                <span class="text-orange-500 font-bold text-xs tracking-widest uppercase block mb-2" data-i18n="book_tag">Form Submission</span>
+                <h2 class="text-4xl font-black mb-4" data-i18n="book_title">預約專業諮詢</h2>
+                <p class="text-slate-400 italic" data-i18n="book_sub">"Precision nutrition backed by medical data."</p>
             </div>
             <form id="appointmentForm" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSc8p7MsmtiS47dl7UZs-jOp1EFy6f-658tCNnWBsyOlGa0e-Q/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;" class="space-y-6 text-slate-900">
                 <div class="grid md:grid-cols-2 gap-6">
-                    <input type="text" name="entry.507314948" required placeholder="您的姓名 / 單位名稱" class="px-8 py-5 rounded-3xl bg-white outline-none w-full shadow-inner focus:ring-4 focus:ring-orange-500/30 transition">
-                    <input type="tel" name="entry.1843187282" required placeholder="聯絡電話" class="px-8 py-5 rounded-3xl bg-white outline-none w-full shadow-inner focus:ring-4 focus:ring-orange-500/30 transition">
+                    <input type="text" name="entry.507314948" required data-i18n-ph="ph_name" placeholder="您的姓名 / 單位名稱" class="px-8 py-5 rounded-3xl bg-white outline-none w-full shadow-inner focus:ring-4 focus:ring-orange-500/30 transition">
+                    <input type="tel" name="entry.1843187282" required data-i18n-ph="ph_phone" placeholder="聯絡電話" class="px-8 py-5 rounded-3xl bg-white outline-none w-full shadow-inner focus:ring-4 focus:ring-orange-500/30 transition">
                 </div>
+                <!-- 確保傳送給 Google Form 的底層 Value 保持原樣以維護數據統計，顯示文字則經 data-i18n 翻譯為最新活粒鈣名稱 -->
                 <select name="entry.103362142" required class="px-8 py-5 rounded-3xl bg-white outline-none w-full appearance-none shadow-inner focus:ring-4 focus:ring-orange-500/30 transition">
-                    <option value="">請選擇諮詢項目</option>
-                    <option value="兒童果汁牛奶鈣咀嚼錠諮詢">兒童果汁牛奶鈣咀嚼錠諮詢</option>
-                    <option value="保健食品代工研發需求">保健食品代工研發需求</option>
-                    <option value="寵物潔牙骨產品合作">寵物潔牙骨產品合作</option>
-                    <option value="大華檢驗所臨床合作">大華檢驗所臨床合作</option>
+                    <option value="" data-i18n="ph_select_consult">請選擇諮詢項目</option>
+                    <option value="兒童果汁牛奶鈣咀嚼錠諮詢" data-i18n="opt_c1">兒童果汁牛奶鈣咀嚼錠諮詢</option>
+                    <option value="保健食品代工研發需求" data-i18n="opt_c2">保健食品代工研發需求</option>
+                    <option value="寵物潔牙骨產品合作" data-i18n="opt_c3">寵物潔牙骨產品合作</option>
+                    <option value="大華檢驗所臨床合作" data-i18n="opt_c4">大華檢驗所臨床合作</option>
                 </select>
-                <textarea name="entry.1742417711" placeholder="請描述您的具體需求..." class="px-8 py-5 rounded-3xl bg-white outline-none w-full shadow-inner focus:ring-4 focus:ring-orange-500/30 transition" rows="4"></textarea>
-                <button type="submit" class="w-full py-6 bg-orange-500 text-white rounded-[32px] font-black text-xl hover:bg-orange-600 hover:shadow-xl transition-all active:scale-95">送出諮詢請求</button>
+                <textarea name="entry.1742417711" data-i18n-ph="ph_desc" placeholder="請描述您的具體需求..." class="px-8 py-5 rounded-3xl bg-white outline-none w-full shadow-inner focus:ring-4 focus:ring-orange-500/30 transition" rows="4"></textarea>
+                <button type="submit" class="w-full py-6 bg-orange-500 text-white rounded-[32px] font-black text-xl hover:bg-orange-600 hover:shadow-xl transition-all active:scale-95" data-i18n="book_btn">送出諮詢請求</button>
             </form>
             <div id="successMessage" class="hidden text-center py-20">
                 <i class="fas fa-check-circle text-orange-500 text-6xl mb-6"></i>
-                <h3 class="text-3xl font-black mb-4">預約資料已成功送出</h3>
-                <p class="text-slate-400">專員將於服務時間內盡快與您聯繫。</p>
+                <h3 class="text-3xl font-black mb-4" data-i18n="book_success">預約資料已成功送出</h3>
+                <p class="text-slate-400" data-i18n="book_success_sub">專員將於服務時間內盡快與您聯繫。</p>
             </div>
         </div>
     </section>
@@ -480,21 +844,45 @@
             <div>
                 <div class="flex items-center gap-3 mb-6">
                     <div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white"><i class="fas fa-flask"></i></div>
-                    <span class="font-black text-2xl tracking-tighter">譯軒生技 YIXUAN</span>
+                    <span class="font-black text-2xl tracking-tighter" data-i18n="footer_brand">譯軒生技 YIXUAN</span>
                 </div>
-                <p class="text-slate-400 max-w-sm mb-8 leading-relaxed">深耕預防醫學與精準微菌，致力為生命提供最誠實、最科學的健康支持方案。</p>
+                <p class="text-slate-400 max-w-sm mb-8 leading-relaxed" data-i18n="footer_desc">深耕預防醫學與精準微菌，致力為生命提供最誠實、最科學的健康支持方案。</p>
                 <div class="flex gap-4">
                     <a href="https://www.facebook.com/dahualabpeng" target="_blank" class="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-[#1877F2] hover:bg-[#1877F2] hover:text-white transition shadow-sm"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://line.me/ti/p/@932cczax" target="_blank" class="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-[#06C755] hover:bg-[#06C755] hover:text-white transition shadow-sm"><i class="fab fa-line"></i></a>
                 </div>
             </div>
             <div class="md:text-right">
-                <p class="text-slate-900 font-bold mb-2">服務網絡</p>
-                <p class="text-slate-400 text-sm mb-8">精準檢測中心 · 全球臨床應用</p>
+                <p class="text-slate-900 font-bold mb-2" data-i18n="footer_net">服務網絡</p>
+                <p class="text-slate-400 text-sm mb-8" data-i18n="footer_net_sub">精準檢測中心 · 全球臨床應用</p>
                 <p class="text-[10px] text-slate-300 font-black uppercase tracking-widest">© 2026 YIXUAN BIO-TECH. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
+    <script>
+        // 設定點選連動與表單預約成功提示
+        function navigateToBusiness(sectionId, typeValue) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+            if (typeValue) {
+                const selectElement = document.querySelector('select[name="entry.103362142"]');
+                if (selectElement) { selectElement.value = typeValue; }
+            }
+        }
+
+        function selectConsultType(typeValue) {
+            const selectElement = document.querySelector('select[name="entry.103362142"]');
+            if (selectElement) { selectElement.value = typeValue; }
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function onImageLoad(imgElement) {
+            const label = imgElement.previousElementSibling;
+            if (label && label.classList.contains('img-fallback-label')) {
+                label.style.opacity = '0';
+                setTimeout(() => label.style.display = 'none', 300);
+            }
+        }
+    </script>
 </body>
 </html>
